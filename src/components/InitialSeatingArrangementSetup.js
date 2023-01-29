@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import "./rows.css";
+import { getMovie } from "../redux/action/movieAction";
+import store from "../store";
 
-const InitialSeatingArrangementSetup = () => {
+const InitialSeatingArrangementSetup = (props) => {
+  const { id } = props.match.params;
+  console.log("initial props ", id);
   const [rows, setRows] = useState(5);
   const [cols, setCols] = useState(6);
   const [blocked, setBlocked] = useState({});
+
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const convertNumberToExcelText = (n) => {
     let result = "";
@@ -17,13 +26,13 @@ const InitialSeatingArrangementSetup = () => {
   };
 
   const handleSave = () => {
-    // const blockedSeats = {};
-    // Object.keys(rowsColsHash).forEach((key) => {
-    //   if (rowsColsHash[key] && rowsColsHash[key] === 1)
-    //     blockedSeats[key] = rowsColsHash[key];
-    // });
-    // setBlocked({ ...blocked, ...blockedSeats });
-    // setRowsColsHash({});
+    dispatch(
+      getMovie({
+        blocked,
+      })
+    );
+    console.log(store.getState());
+    // history.push(`/movie/${id}`);
   };
 
   console.log("Blocked Seats are ", blocked);
