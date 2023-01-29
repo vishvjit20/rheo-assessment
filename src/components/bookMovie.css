@@ -1,0 +1,30 @@
+.book-movie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-movie > a {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+}
+
+.book-movie-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.book-movie-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-movie-img > img {
+  height: 300px;
+  object-fit: cover;
+}

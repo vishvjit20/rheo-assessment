@@ -6,4 +6,6 @@
 
 .home-header > .home {
   margin-top: 30px;
+  text-decoration: none;
+  color: inherit;
 }

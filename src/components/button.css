@@ -1,0 +1,15 @@
+.customize-button {
+  color: #ffffff;
+  background-color: #dc3535;
+  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  margin: 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.customize-button:hover {
+  background-color: #cd0404;
+}

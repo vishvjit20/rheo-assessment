@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./rows.css";
 import { getMovie } from "../redux/action/movieAction";
 import store from "../store";
 
 const InitialSeatingArrangementSetup = (props) => {
   const { id } = props.match.params;
-  console.log("initial props ", id);
-  const [rows, setRows] = useState(5);
-  const [cols, setCols] = useState(6);
+  const { movie } = useSelector((state) => state.movies);
+  const { rows: initRows, cols: initCols } = movie;
+
+  console.log("initial props ", movie);
+  const [rows, setRows] = useState(initRows);
+  const [cols, setCols] = useState(initCols);
   const [blocked, setBlocked] = useState({});
 
   const history = useHistory();
@@ -29,10 +32,12 @@ const InitialSeatingArrangementSetup = (props) => {
     dispatch(
       getMovie({
         blocked,
+        rows,
+        cols,
       })
     );
     console.log(store.getState());
-    // history.push(`/movie/${id}`);
+    history.push(`/movie/${id}`);
   };
 
   console.log("Blocked Seats are ", blocked);

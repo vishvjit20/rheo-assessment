@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import Button from "./Button";
+import CenterContent from "./CenterContent";
 import "./rows.css";
 
 const Rows = () => {
-  const [rows, setRows] = useState(30);
-  const [cols, setCols] = useState(6);
   const [rowsColsHash, setRowsColsHash] = useState({});
   const [blocked, setBlocked] = useState({});
+
+  const { movie } = useSelector((state) => state.movies);
+  const { blocked: blockedSeats, rows, cols } = movie ?? {};
+  console.log("Selected movie ", movie);
 
   const convertNumberToExcelText = (n) => {
     let result = "";
@@ -28,32 +33,8 @@ const Rows = () => {
     setRowsColsHash({});
   };
 
-  console.log("Blocked Seats are ", blocked);
-
   return (
     <div>
-      <div className="row-input">
-        <input
-          type="number"
-          placeholder="Rows"
-          value={rows}
-          onChange={(e) => {
-            setRows(Number(e.target.value) || 0);
-          }}
-        />
-        <input
-          type="number"
-          placeholder="Cols"
-          value={cols}
-          onChange={(e) => {
-            setCols(Number(e.target.value) || 0);
-          }}
-        />
-
-        <button className="save-btn" onClick={handleSave}>
-          Save Setup
-        </button>
-      </div>
       <div className="row-heading">
         Select Seats to be <span> Blocked</span>
       </div>
@@ -69,11 +50,12 @@ const Rows = () => {
                   ? "rows-col-active"
                   : blocked[i + "#" + j]
                   ? "rows-col-blocked"
+                  : !!blockedSeats?.[i + "#" + j]
+                  ? "rows-col-to-be-removed"
                   : ""
               }`}
               key={i + "#" + j}
               onClick={() => {
-                console.log("clicked");
                 let key = i + "#" + j;
                 if (!blocked[key])
                   if (rowsColsHash[key]) {
@@ -88,6 +70,9 @@ const Rows = () => {
           ))}
         </div>
       ))}
+      <CenterContent>
+        <Button text="Book Ticket" handleClick={handleSave} />
+      </CenterContent>
     </div>
   );
 };
