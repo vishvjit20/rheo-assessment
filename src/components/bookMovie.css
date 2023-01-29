@@ -11,17 +11,8 @@
 }
 
 .book-movie-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  margin: 10px 0;
-}
-
-.book-movie-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 26px;
+  font-weight: 500;
 }
 
 .book-movie-img > img {

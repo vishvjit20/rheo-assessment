@@ -1,7 +1,14 @@
 .home-header {
   display: flex;
   justify-content: space-around;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #b2b2b2;
+}
+
+.home-header > .home-header-text {
+  font-size: 30px;
+  font-weight: 600;
+  color: #5f6f94;
+  margin: 20px 0;
 }
 
 .home-header > .home {

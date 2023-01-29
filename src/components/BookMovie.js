@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovie } from "../redux/action/movieAction";
 import "./bookMovie.css";
-import NavigationBar from "./NavigationBar";
 import Button from "./Button";
 import { genreIds, languages } from "./getMovies";
 import CenterContent from "./CenterContent";
-import store from "../store";
 
 const BookMovie = (props) => {
   const { id } = props.match.params;
@@ -18,8 +16,6 @@ const BookMovie = (props) => {
     () => movies?.filter((movie) => movie.id === +id),
     [id, movies]
   );
-
-  console.log("e", store.getState());
 
   const {
     original_title,
@@ -35,17 +31,16 @@ const BookMovie = (props) => {
 
   return (
     <div>
-      <NavigationBar />
-      <div className="book-movie-title">
+      <CenterContent className="book-movie-title">
         {original_title} - {languages[original_language]}
-      </div>
-      <div className="book-movie-img">
+      </CenterContent>
+      <CenterContent className="book-movie-img">
         <img
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           alt={original_title}
         />
-      </div>
-      <div className="movie-genres">
+      </CenterContent>
+      <CenterContent>
         {genre_ids?.map((genre, idx) => (
           <div
             key={idx}
@@ -55,7 +50,7 @@ const BookMovie = (props) => {
             {genreIds[genre]}
           </div>
         ))}
-      </div>
+      </CenterContent>
       <CenterContent>{overview}</CenterContent>
       <div className="book-movie">
         <Link to={`/movie/${id}/rows`}>

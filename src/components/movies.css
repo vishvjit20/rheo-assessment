@@ -23,11 +23,9 @@
 }
 
 .movies-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
+  color: #5f6f94;
 }
 
 .movie-genres {
@@ -39,9 +37,10 @@
 .movie-genre {
   display: inline;
   font-size: 14px;
-  background-color: #f99417;
+  background-color: #f65a83;
+  border-radius: 4px;
   color: #ffffff;
-  padding: 5px;
+  padding: 5px 6px;
   margin: 10px;
 }
 

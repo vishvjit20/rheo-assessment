@@ -2,12 +2,15 @@ import React from "react";
 import Movie from "./Movie";
 import "./movies.css";
 import { useSelector } from "react-redux";
+import CenterContent from "./CenterContent";
 
 const Movies = () => {
   const { movies } = useSelector((state) => state.movies);
   return (
     <div>
-      <div className="movies-header">Recommended Movies</div>
+      <CenterContent className="movies-header">
+        Recommended Movies
+      </CenterContent>
       <div className="movies">
         {movies.map((movie) => (
           <Movie

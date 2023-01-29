@@ -1,16 +1,17 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./rows.css";
 import { getAllMovies, getMovie } from "../redux/action/movieAction";
-import NavigationBar from "./NavigationBar";
 import Button from "./Button";
 import store from "../store";
+import { convertNumberToExcelText } from "./utils";
+import CenterContent from "./CenterContent";
 
 const InitialSeatingArrangementSetup = (props) => {
   const { id } = props.match.params;
   const { movie, movies } = useSelector((state) => state.movies);
-  const { rows: initRows, cols: initCols } = movie;
+  const { rows: initRows, cols: initCols, blockedTicket } = movie ?? {};
 
   console.log("initial props ", movie);
   const [rows, setRows] = useState(initRows);
@@ -20,23 +21,16 @@ const InitialSeatingArrangementSetup = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const convertNumberToExcelText = (n) => {
-    let result = "";
-    while (n > 0) {
-      let char = String.fromCharCode(65 + ((n - 1) % 26));
-      result = char + result;
-      n = ~~((n - 1) / 26);
-    }
-    return result;
-  };
+  useEffect(() => {
+    setBlocked({ ...movie.blocked });
+  }, [movie]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const selectedMovie = useMemo(
     () => movies.filter((movie) => movie.id === +id),
     [id, movies]
   );
 
-  const handleSave = async () => {
+  const handleSave = () => {
     console.log(store.getState());
     const otherMovies = movies?.filter((movie) => movie.id !== +id);
 
@@ -46,18 +40,14 @@ const InitialSeatingArrangementSetup = (props) => {
       rows,
       cols,
     };
-    await dispatch(getMovie(currentMovieData));
-    await dispatch(getAllMovies([currentMovieData, ...otherMovies]));
+    dispatch(getMovie(currentMovieData));
+    dispatch(getAllMovies([currentMovieData, ...otherMovies]));
     localStorage.setItem("ticket-booking", JSON.stringify(store.getState()));
-
-    console.log(store.getState());
-
     history.push(`/movie/${id}`);
   };
 
   return (
-    <div>
-      <NavigationBar />
+    <React.Fragment>
       <div className="row-input">
         <input
           type="number"
@@ -77,9 +67,9 @@ const InitialSeatingArrangementSetup = (props) => {
         />
         <Button text="Save Setup" handleClick={handleSave} />
       </div>
-      <div className="row-heading">
+      <CenterContent className="row-heading">
         Select Seats to be <span> Blocked</span>
-      </div>
+      </CenterContent>
       {new Array(rows)?.fill(0).map((_, i) => (
         <div className="rows" key={i}>
           <div className="row-start">
@@ -88,25 +78,27 @@ const InitialSeatingArrangementSetup = (props) => {
           {new Array(cols)?.fill(0).map((_, j) => (
             <div
               className={`rows-col ${
-                blocked[i + "#" + j] ? "rows-col-active" : ""
+                blocked?.[i + "#" + j]
+                  ? "rows-col-to-be-removed"
+                  : blockedTicket[i + "#" + j]
+                  ? "rows-col-blocked"
+                  : ""
               }`}
               key={i + "#" + j}
               onClick={() => {
-                console.log("clicked");
                 let key = i + "#" + j;
-                if (blocked[key]) {
-                  setBlocked({ ...blocked, [key]: 0 });
-                } else {
-                  setBlocked({ ...blocked, [key]: 1 });
-                }
+                if (!blockedTicket?.[key])
+                  if (!blocked?.[key]) {
+                    setBlocked({ ...blocked, [key]: 1 });
+                  }
               }}
             >
-              {j + 1}
+              {!blocked?.[i + "#" + j] && j + 1}
             </div>
           ))}
         </div>
       ))}
-    </div>
+    </React.Fragment>
   );
 };
 

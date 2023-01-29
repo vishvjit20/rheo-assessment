@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 const NavigationBar = () => {
   return (
     <div className="home-header">
-      <div>
-        <h1>Book My Ticket</h1>
-      </div>
+      <div className="home-header-text">Book My Ticket</div>
       <Link to="/" className="home">
         Home
       </Link>
