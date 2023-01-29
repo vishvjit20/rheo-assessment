@@ -1,4 +1,8 @@
-.rows {
+.rows-start {
+  display: flex;
+}
+
+.rows-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +64,7 @@
 }
 
 .rows-col-blocked {
-  background-color: gray;
+  background-color: #b2b2b2;
   color: #ffffff;
 }
 

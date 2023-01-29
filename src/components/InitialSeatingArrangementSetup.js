@@ -13,7 +13,6 @@ const InitialSeatingArrangementSetup = (props) => {
   const { movie, movies } = useSelector((state) => state.movies);
   const { rows: initRows, cols: initCols, blockedTicket } = movie ?? {};
 
-  console.log("initial props ", movie);
   const [rows, setRows] = useState(initRows);
   const [cols, setCols] = useState(initCols);
   const [blocked, setBlocked] = useState({});
@@ -31,7 +30,6 @@ const InitialSeatingArrangementSetup = (props) => {
   );
 
   const handleSave = () => {
-    console.log(store.getState());
     const otherMovies = movies?.filter((movie) => movie.id !== +id);
 
     const currentMovieData = {
@@ -45,6 +43,8 @@ const InitialSeatingArrangementSetup = (props) => {
     localStorage.setItem("ticket-booking", JSON.stringify(store.getState()));
     history.push(`/movie/${id}`);
   };
+
+  console.log(rows);
 
   return (
     <React.Fragment>
@@ -71,7 +71,10 @@ const InitialSeatingArrangementSetup = (props) => {
         Select Seats to be <span> Blocked</span>
       </CenterContent>
       {new Array(rows)?.fill(0).map((_, i) => (
-        <div className="rows" key={i}>
+        <div
+          className={`rows ${+cols > 20 ? "rows-start" : "rows-center"}`}
+          key={i}
+        >
           <div className="row-start">
             {convertNumberToExcelText(Number(i + 1))}
           </div>
@@ -80,7 +83,7 @@ const InitialSeatingArrangementSetup = (props) => {
               className={`rows-col ${
                 blocked?.[i + "#" + j]
                   ? "rows-col-to-be-removed"
-                  : blockedTicket[i + "#" + j]
+                  : blockedTicket?.[i + "#" + j]
                   ? "rows-col-blocked"
                   : ""
               }`}

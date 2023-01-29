@@ -53,7 +53,10 @@ const Rows = (props) => {
       </CenterContent>
 
       {new Array(rows).fill(0).map((_, i) => (
-        <div className="rows" key={i}>
+        <div
+          className={`rows ${+cols > 20 ? "rows-start" : "rows-center"}`}
+          key={i}
+        >
           <div className="row-start">
             {convertNumberToExcelText(Number(i + 1))}
           </div>
