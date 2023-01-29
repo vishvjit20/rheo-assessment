@@ -1,6 +1,7 @@
 import React from "react";
 import "./home.css";
-import Rows from "./Rows";
+import InitialSeatingArrangementSetup from "./InitialSeatingArrangementSetup";
+import Movies from "./Movies";
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
         <div className="home">Home</div>
       </div>
 
-      <Rows />
+      <Movies />
     </div>
   );
 };
