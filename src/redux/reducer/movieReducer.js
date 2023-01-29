@@ -1,7 +1,8 @@
-import { GET_MOVIE } from "../constant";
+import { GET_ALL_MOVIES, GET_MOVIE } from "../constant";
 
 const initialState = {
   movie: [],
+  movies: [],
 };
 
 export const movieReducer = (state = initialState, action) => {
@@ -11,7 +12,11 @@ export const movieReducer = (state = initialState, action) => {
         ...state,
         movie: action.payload,
       };
-
+    case GET_ALL_MOVIES:
+      return {
+        ...state,
+        movies: action.payload,
+      };
     default:
       return state;
   }

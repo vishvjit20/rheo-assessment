@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./rows.css";
-import { getMovie } from "../redux/action/movieAction";
+import { getAllMovies, getMovie } from "../redux/action/movieAction";
+import NavigationBar from "./NavigationBar";
+import Button from "./Button";
 import store from "../store";
 
 const InitialSeatingArrangementSetup = (props) => {
   const { id } = props.match.params;
-  const { movie } = useSelector((state) => state.movies);
+  const { movie, movies } = useSelector((state) => state.movies);
   const { rows: initRows, cols: initCols } = movie;
 
   console.log("initial props ", movie);
@@ -28,22 +30,34 @@ const InitialSeatingArrangementSetup = (props) => {
     return result;
   };
 
-  const handleSave = () => {
-    dispatch(
-      getMovie({
-        blocked,
-        rows,
-        cols,
-      })
-    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const selectedMovie = useMemo(
+    () => movies.filter((movie) => movie.id === +id),
+    [id, movies]
+  );
+
+  const handleSave = async () => {
     console.log(store.getState());
+    const otherMovies = movies?.filter((movie) => movie.id !== +id);
+
+    const currentMovieData = {
+      ...selectedMovie[0],
+      blocked,
+      rows,
+      cols,
+    };
+    await dispatch(getMovie(currentMovieData));
+    await dispatch(getAllMovies([currentMovieData, ...otherMovies]));
+    localStorage.setItem("ticket-booking", JSON.stringify(store.getState()));
+
+    console.log(store.getState());
+
     history.push(`/movie/${id}`);
   };
 
-  console.log("Blocked Seats are ", blocked);
-
   return (
     <div>
+      <NavigationBar />
       <div className="row-input">
         <input
           type="number"
@@ -61,20 +75,17 @@ const InitialSeatingArrangementSetup = (props) => {
             setCols(Number(e.target.value) || 0);
           }}
         />
-
-        <button className="save-btn" onClick={handleSave}>
-          Save Setup
-        </button>
+        <Button text="Save Setup" handleClick={handleSave} />
       </div>
       <div className="row-heading">
         Select Seats to be <span> Blocked</span>
       </div>
-      {new Array(rows).fill(0).map((_, i) => (
+      {new Array(rows)?.fill(0).map((_, i) => (
         <div className="rows" key={i}>
           <div className="row-start">
             {convertNumberToExcelText(Number(i + 1))}
           </div>
-          {new Array(cols).fill(0).map((_, j) => (
+          {new Array(cols)?.fill(0).map((_, j) => (
             <div
               className={`rows-col ${
                 blocked[i + "#" + j] ? "rows-col-active" : ""

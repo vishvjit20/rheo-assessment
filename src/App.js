@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import BookingSummary from "./components/BookingSummary";
 import BookMovie from "./components/BookMovie";
 import Home from "./components/Home";
 import InitialSeatingArrangementSetup from "./components/InitialSeatingArrangementSetup";
@@ -16,6 +17,7 @@ const App = () => {
           component={InitialSeatingArrangementSetup}
         />
         <Route path="/movie/:id/rows" component={Rows} />
+        <Route path="/payment/:id" component={BookingSummary} />
       </Switch>
     </BrowserRouter>
   );

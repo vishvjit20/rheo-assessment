@@ -10,8 +10,10 @@ const Movie = ({ title, id, genres, language }) => {
         <div className="movie">
           <div>{title}</div>
           <div className="movie-genres">
-            {genres.map((genre) => (
-              <div className="movie-genre">{genreIds[genre]}</div>
+            {genres.map((genre, idx) => (
+              <div key={idx} className="movie-genre">
+                {genreIds[genre]}
+              </div>
             ))}
           </div>
           <div className="movie-language">Language: {languages[language]}</div>

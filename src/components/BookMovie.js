@@ -5,19 +5,21 @@ import { getMovie } from "../redux/action/movieAction";
 import "./bookMovie.css";
 import NavigationBar from "./NavigationBar";
 import Button from "./Button";
-import { genreIds, languages, movies } from "./getMovies";
+import { genreIds, languages } from "./getMovies";
 import CenterContent from "./CenterContent";
+import store from "../store";
 
 const BookMovie = (props) => {
   const { id } = props.match.params;
-  const { movie } = useSelector((state) => state.movies);
-  const { rows, cols } = movie;
+  const { movies } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
 
   const selectedMovie = useMemo(
-    () => movies.filter((movie) => movie.id === +id),
-    [id]
+    () => movies?.filter((movie) => movie.id === +id),
+    [id, movies]
   );
+
+  console.log("e", store.getState());
 
   const {
     original_title,
@@ -26,10 +28,10 @@ const BookMovie = (props) => {
     overview,
     original_language,
   } = (selectedMovie && selectedMovie[0]) ?? {};
-  console.log("Selected Movie ", selectedMovie, typeof id);
+
   useEffect(() => {
-    dispatch(getMovie({ rows: rows || 5, cols: cols || 6 }));
-  }, [cols, dispatch, rows]);
+    dispatch(getMovie({ ...selectedMovie[0] }));
+  }, [dispatch, selectedMovie]);
 
   return (
     <div>
@@ -44,8 +46,9 @@ const BookMovie = (props) => {
         />
       </div>
       <div className="movie-genres">
-        {genre_ids.map((genre) => (
+        {genre_ids?.map((genre, idx) => (
           <div
+            key={idx}
             className="movie-genre"
             style={{ padding: "8px 20px", borderRadius: "4px" }}
           >
