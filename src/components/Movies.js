@@ -1,18 +1,21 @@
 import React from "react";
 import Movie from "./Movie";
 import "./movies.css";
+import { movies } from "./getMovies";
 
 const Movies = () => {
   return (
     <div>
       <div className="movies-header">Recommended Movies</div>
       <div className="movies">
-        <Movie title="Shawshank Redemption" id="1" />
-        <Movie title="Avengers : End Game" id="2" />
-        <Movie title="3 Idiots" id="3" />
-        <Movie title="KGF: Chapter 1(Cinepolis)" id="4" />
-        <Movie title="Bahubali: The beginning(INOX)" id="5" />
-        <Movie title="Master" id="6" />
+        {movies.map((movie) => (
+          <Movie
+            title={movie.original_title}
+            id={movie.id}
+            genres={movie.genre_ids}
+            language={movie.original_language}
+          />
+        ))}
       </div>
     </div>
   );

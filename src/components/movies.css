@@ -10,9 +10,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100%;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 500;
+}
+
+.movie-link {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
 }
 
 .movies-header {
@@ -21,4 +28,23 @@
   align-items: center;
   font-size: 20px;
   font-weight: 500;
+}
+
+.movie-genres {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.movie-genre {
+  display: inline;
+  font-size: 14px;
+  background-color: #f99417;
+  color: #ffffff;
+  padding: 5px;
+  margin: 10px;
+}
+
+.movie-language {
+  font-size: 16px;
 }
