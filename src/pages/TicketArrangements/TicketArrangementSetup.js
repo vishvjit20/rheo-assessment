@@ -44,8 +44,6 @@ const TicketArrangementSetup = (props) => {
     history.push(`/movie/${id}`);
   };
 
-  console.log(rows);
-
   return (
     <React.Fragment>
       <div className="row-input">

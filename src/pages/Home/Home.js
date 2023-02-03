@@ -17,11 +17,7 @@ const Home = () => {
     else dispatch(getAllMovies(movies));
   }, [dispatch]);
 
-  return (
-    <div>
-      <Movies />
-    </div>
-  );
+  return <Movies />;
 };
 
 export default Home;

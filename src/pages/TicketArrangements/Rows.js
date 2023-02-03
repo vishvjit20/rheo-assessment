@@ -34,7 +34,6 @@ const Rows = (props) => {
     (prev, curr) => (rowsColsHash?.[curr] === 1 ? prev + 1 : prev),
     0
   );
-  console.log("BKS ", noOfBookings);
 
   const handleOpen = () => {
     setOpen(true);

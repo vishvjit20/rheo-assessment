@@ -14,14 +14,12 @@ const BookingSummary = ({ rowsColsHash, price, handleSaveData }) => {
       setTimeout(() => {
         setCounter(counter - 1);
       }, 1000);
-      console.log("Counter ", counter);
     }
   }, [counter]);
 
   useEffect(() => {
     let positionPts = [];
     Object.keys(rowsColsHash)?.forEach((key) => {
-      console.log(key, rowsColsHash[key]);
       if (rowsColsHash?.[key]) {
         const [row, col] = key?.split("#");
         const loc = convertNumberToExcelText(+row + 1) + (+col + 1);
