@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Card from "./Card";
-import { genreIds, languages } from "./getMovies";
+import Card from "../../components/Card/Card";
+import { genreIds, languages } from "../../components/utils/getMovies";
 
 const Movie = ({ title, id, genres, language }) => {
   return (

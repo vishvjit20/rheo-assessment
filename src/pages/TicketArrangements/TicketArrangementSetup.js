@@ -2,13 +2,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./rows.css";
-import { getAllMovies, getMovie } from "../redux/action/movieAction";
-import Button from "./Button";
-import store from "../store";
-import { convertNumberToExcelText } from "./utils";
-import CenterContent from "./CenterContent";
+import { getAllMovies, getMovie } from "../../redux/action/movieAction";
+import Button from "../../components/Button/Button";
+import store from "../../store";
+import { convertNumberToExcelText } from "../../components/utils/excelTextFormula";
+import CenterContent from "../../components/CenterContent/CenterContent";
 
-const InitialSeatingArrangementSetup = (props) => {
+const TicketArrangementSetup = (props) => {
   const { id } = props.match.params;
   const { movie, movies } = useSelector((state) => state.movies);
   const { rows: initRows, cols: initCols, blockedTicket } = movie ?? {};
@@ -105,4 +105,4 @@ const InitialSeatingArrangementSetup = (props) => {
   );
 };
 
-export default InitialSeatingArrangementSetup;
+export default TicketArrangementSetup;

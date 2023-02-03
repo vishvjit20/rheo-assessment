@@ -6,6 +6,7 @@ const Button = (props) => {
     <button
       className={`customize-button ${props.className || ""}`}
       onClick={props.handleClick}
+      disabled={props.disabled}
     >
       {props.text}
     </button>

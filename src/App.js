@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import BookingSummary from "./components/BookingSummary";
-import BookMovie from "./components/BookMovie";
-import Home from "./components/Home";
-import InitialSeatingArrangementSetup from "./components/InitialSeatingArrangementSetup";
-import NavigationBar from "./components/NavigationBar";
-import Rows from "./components/Rows";
+import BookingSummary from "./pages/BookingSummary/BookingSummary";
+import BookMovie from "./pages/BookMovie/BookMovie";
+import Home from "./pages/Home/Home";
+import TicketArrangements from "./pages/TicketArrangements/TicketArrangementSetup";
+import NavigationBar from "./components/Navigation/NavigationBar";
+import Rows from "./pages/TicketArrangements/Rows";
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/movie/:id" component={BookMovie} exact />
         <Route
           path="/movie/:id/customize-rows"
-          component={InitialSeatingArrangementSetup}
+          component={TicketArrangements}
         />
         <Route path="/movie/:id/rows" component={Rows} />
         <Route path="/payment/:id" component={BookingSummary} />

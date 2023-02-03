@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovie } from "../redux/action/movieAction";
+import { getMovie } from "../../redux/action/movieAction";
 import "./bookMovie.css";
-import Button from "./Button";
-import { genreIds, languages } from "./getMovies";
-import CenterContent from "./CenterContent";
+import Button from "../../components/Button/Button";
+import { genreIds, languages } from "../../components/utils/getMovies";
+import CenterContent from "../../components/CenterContent/CenterContent";
 
 const BookMovie = (props) => {
   const { id } = props.match.params;

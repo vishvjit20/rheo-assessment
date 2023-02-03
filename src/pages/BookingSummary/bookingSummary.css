@@ -1,0 +1,22 @@
+.booking-summary-header {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.booking-space {
+  margin-right: 10px;
+}
+
+.booking-space-top {
+  display: flex;
+}
+
+.booking-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.booking-blocked {
+  background-color: #f48484 !important;
+}

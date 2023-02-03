@@ -2,7 +2,7 @@ import React from "react";
 import Movie from "./Movie";
 import "./movies.css";
 import { useSelector } from "react-redux";
-import CenterContent from "./CenterContent";
+import CenterContent from "../../components/CenterContent/CenterContent";
 
 const Movies = () => {
   const { movies } = useSelector((state) => state.movies);
